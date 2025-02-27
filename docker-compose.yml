@@ -1,0 +1,19 @@
+services:
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:latest
+    networks:
+      - docker_odoo_guamay
+      - odoo17-belephantit-preprod_default
+    ports:
+      - "80:80"                     # HTTP port mapping
+      - "443:443"                   # HTTPS port mapping
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf    # Nginx configuration
+      - ./nginx/certificates:/etc/nginx/certificates          # SSL certificates
+      - ./nginx/logs:/var/log/nginx                           # logs
+networks:
+  docker_odoo_guamay:
+    external: true  # Usa la misma red que Odoo
+  odoo17-belephantit-preprod_default:
+    external: true  # Usa la misma red que Odoo  
